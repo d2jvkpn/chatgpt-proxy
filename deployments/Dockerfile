@@ -11,7 +11,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 COPY ./main.go ./go.mod ./go.sum ./project.yaml  /opt/chatgpt-proxy/
 COPY ./internal /opt/chatgpt-proxy/internal
-COPY ./pkg      /opt/chatgpt-proxy/pkg
+# COPY ./pkg      /opt/chatgpt-proxy/pkg
 # COPY ./vendor   /opt/chatgpt-proxy/vendor
 
 # in alpine, date doesn't parse %:z

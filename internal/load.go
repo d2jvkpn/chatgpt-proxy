@@ -8,8 +8,10 @@ import (
 	"github.com/d2jvkpn/chatgpt-proxy/internal/handlers"
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
 
+	"github.com/d2jvkpn/go-web/pkg/wrap"
 	"github.com/d2jvkpn/x-ai/pkg/chatgpt"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 func Load(config string, release bool) (err error) {
@@ -38,6 +40,13 @@ func Load(config string, release bool) (err error) {
 	if settings.AllowApiKeys.Enable && !settings.Tls.Enable {
 		return fmt.Errorf("enabled api keys without using tls")
 	}
+
+	level := zap.DebugLevel
+	if release {
+		level = zap.InfoLevel
+	}
+	settings.Logger = wrap.NewLogger("logs/chatgot-proxy.log", level, 256, nil)
+	_Logger = settings.Logger.Named("internal")
 
 	//
 	if release {

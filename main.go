@@ -12,6 +12,8 @@ import (
 
 	"github.com/d2jvkpn/chatgpt-proxy/internal"
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
+
+	"github.com/d2jvkpn/go-web/pkg/misc"
 )
 
 var (
@@ -30,6 +32,7 @@ func main() {
 		config  string
 		addr    string
 		err     error
+		meta    map[string]any
 		errch   chan error
 		quit    chan os.Signal
 	)
@@ -37,6 +40,10 @@ func main() {
 	if err = settings.SetProject(_Project); err != nil {
 		log.Fatalln(err)
 	}
+
+	meta = misc.BuildInfo()
+	meta["project"] = settings.GetProject()
+	meta["version"] = settings.GetVersion()
 
 	flag.StringVar(&addr, "addr", "0.0.0.0:3021", "http server listening address")
 	flag.StringVar(&config, "config", "configs/local.yaml", "config file path")
@@ -47,7 +54,7 @@ func main() {
 
 		fmt.Fprintf(output, "Usage:\n")
 		flag.PrintDefaults()
-		fmt.Fprintf(output, "\nConfig:\n```yaml\n%s```\n", settings.Config())
+		fmt.Fprintf(output, "\nConfig:\n```yaml\n%s```\n", settings.GetConfig())
 	}
 
 	flag.Parse()
@@ -56,7 +63,8 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	if errch, err = internal.Serve(addr, release); err != nil {
+	meta["release"] = release
+	if errch, err = internal.Serve(addr, meta); err != nil {
 		log.Fatalln(err)
 	}
 	protocol := "http"
@@ -75,8 +83,9 @@ func main() {
 	case <-quit: // sig := <-quit:
 		// if sig == syscall.SIGUSR2 {}
 		fmt.Println("")
-		errch <- fmt.Errorf("SHUTDOWN")
+		errch <- fmt.Errorf(internal.MSG_Shutdown)
 		log.Printf("<<< Exit\n")
+		<-errch
 	}
 
 	if err != nil {

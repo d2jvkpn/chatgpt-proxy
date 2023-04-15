@@ -4,14 +4,18 @@ import (
 	// "fmt"
 	"net/http"
 	"time"
+
+	"go.uber.org/zap"
 )
 
 const (
-	IdleTimeout = 60
+	IdleTimeout  = 60
+	MSG_Shutdown = "SHUTDOWN"
 )
 
 var (
 	_Server *http.Server
+	_Logger *zap.Logger
 )
 
 func init() {

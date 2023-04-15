@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/d2jvkpn/go-web/pkg/wrap"
 	"github.com/d2jvkpn/x-ai/pkg/chatgpt"
 
 	"github.com/spf13/viper"
@@ -15,6 +16,7 @@ var (
 	AllowIps     *AllowedKeys
 	AllowApiKeys *AllowedKeys
 	Tls          *TlsConfig
+	Logger       *wrap.Logger
 )
 
 type TlsConfig struct {
@@ -46,10 +48,14 @@ func SetProject(str string) (err error) {
 	return _Project.ReadConfig(strings.NewReader(str))
 }
 
-func Version() string {
+func GetProject() string {
 	return _Project.GetString("version")
 }
 
-func Config() string {
+func GetVersion() string {
+	return _Project.GetString("project")
+}
+
+func GetConfig() string {
 	return _Project.GetString("config")
 }

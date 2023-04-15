@@ -1,17 +1,18 @@
 package internal
 
 import (
-	// "fmt"
 	"context"
 	"crypto/tls"
+	"fmt"
 	"net"
 	"net/http"
 	"time"
 
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
+	"go.uber.org/zap"
 )
 
-func Serve(addr string, release bool) (errch chan error, err error) {
+func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 	var (
 		listener net.Listener
 		cert     tls.Certificate
@@ -32,10 +33,25 @@ func Serve(addr string, release bool) (errch chan error, err error) {
 		}
 	}
 
+	_Logger.Info("the server is starting", zap.Any("meta", meta))
+
+	shutdown := func() {
+		var err error
+
+		ctx, cancel := context.WithTimeout(context.TODO(), 5*time.Second)
+		if err = _Server.Shutdown(ctx); err != nil {
+			_Logger.Error(fmt.Sprintf("shutdown the server : %v", err))
+		} else {
+			_Logger.Warn("the server is shutting down")
+		}
+		cancel()
+	}
+
 	errch = make(chan error, 2)
 	go func() {
 		// err := _Server.ServeTLS(listener, "configs/localhost.csr", "configs/localhost.key")
 		var err error
+
 		if _Server.TLSConfig == nil {
 			err = _Server.Serve(listener)
 		} else {
@@ -43,27 +59,23 @@ func Serve(addr string, release bool) (errch chan error, err error) {
 		}
 
 		if err != http.ErrServerClosed {
-			shutdown()
-		} else {
+			onexit()
 			errch <- err
 		}
 	}()
 
 	go func() {
-		if err := <-errch; err.Error() == "SHUTDOWN" {
+		var err = <-errch
+		if err.Error() == MSG_Shutdown {
 			shutdown()
+			onexit()
+			errch <- nil
 		}
 	}()
 
 	return errch, nil
 }
 
-func shutdown() {
-	var err error
-
-	ctx, cancel := context.WithTimeout(context.TODO(), 5*time.Second)
-	if err = _Server.Shutdown(ctx); err != nil {
-		// log.Error(fmt.Sprintf("server shutdown: %v", err))
-	}
-	cancel()
+func onexit() {
+	settings.Logger.Down()
 }

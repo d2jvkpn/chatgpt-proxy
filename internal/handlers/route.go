@@ -17,7 +17,7 @@ func RouteOpen(router *gin.RouterGroup, handers ...gin.HandlerFunc) {
 
 	open.GET("/version", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
-			"code": 0, "msg": "ok", "data": gin.H{"version": settings.Version()},
+			"code": 0, "msg": "ok", "data": gin.H{"version": settings.GetVersion()},
 		})
 	})
 }

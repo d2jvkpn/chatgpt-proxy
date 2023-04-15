@@ -1,0 +1,26 @@
+project: chatgpt-proxy
+repository: https://github.com/d2jvkpn/chatgpt-proxy
+version: 0.1.0
+
+config: |
+  # path: configs/{{.APP_ENV}}.yaml
+  allow_ips:
+    enable: true
+    items: [127.0.0.1]
+  allow_api_keys:
+    enable: false
+    items: []
+  tls:
+    enable: false
+    crt: configs/server.crt
+    key: configs/server.key
+  #
+  chatgpt:
+    api_key: sk-THE_API_KEY
+    proxy: socks5://localhost:1081
+  #
+  chatgpt_example2:
+    url: http://127.0.0.1:8080
+  chatgpt_example3:
+    url: https://127.0.0.1:8080
+    tls_skip_verify: true

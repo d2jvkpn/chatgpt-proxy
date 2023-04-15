@@ -13,3 +13,13 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+####
+# directories
+wk*/
+configs/
+logs/
+target/
+
+# files
+docker-compose.yaml

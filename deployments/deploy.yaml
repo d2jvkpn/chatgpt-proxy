@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  chatgpt-proxy:
+    image: registry.cn-shanghai.aliyuncs.com/d2jvkpn/chatgpt-proxy:${TAG}
+    container_name: chatgpt-proxy_${APP_ENV}
+    restart: always
+    # depends_on: ["mysql"]
+    # network_mode: bridge
+    networks: ["net"]
+    ports: ["${PORT}:${PORT}"]
+    environment: ["TZ=Asia/Shanghai"]
+    volumes:
+    - ./configs/:/opt/chatgpt-proxy/configs/
+    - ./logs/:/opt/chatgpt-proxy/logs/
+    command: ["./main", "--config=configs/${APP_ENV}.yaml", "--addr=:${PORT}", "--release"]
+
+networks:
+  net:
+    name: chatgpt-proxy_${APP_ENV}
+    driver: bridge
+    external: false

@@ -27,5 +27,5 @@ func RouteChatgpt(router *gin.RouterGroup, handers ...gin.HandlerFunc) {
 
 	group.POST("/chat/completions", completions)
 	group.POST("/images/generations", imggen)
-	group.POST("/models", models)
+	group.GET("/models", models)
 }

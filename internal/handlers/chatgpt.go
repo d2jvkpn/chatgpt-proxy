@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
-	"github.com/d2jvkpn/x-ai/pkg/chatgpt"
 
+	"github.com/d2jvkpn/x-ai/pkg/chatgpt"
 	"github.com/gin-gonic/gin"
 )
 

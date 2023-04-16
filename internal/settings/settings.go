@@ -54,11 +54,11 @@ func SetProject(str string) (err error) {
 }
 
 func GetProject() string {
-	return _Project.GetString("version")
+	return _Project.GetString("project")
 }
 
 func GetVersion() string {
-	return _Project.GetString("project")
+	return _Project.GetString("version")
 }
 
 func GetConfig() string {

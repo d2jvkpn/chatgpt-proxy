@@ -62,6 +62,8 @@ func Load(config string, release bool) (err error) {
 	engine.Use(cors("*"))
 
 	router = &engine.RouterGroup
+	router.Static("/site", "./site")
+
 	handlers.RouteOpen(router)
 	handlers.RouteChatgpt(router, auth)
 

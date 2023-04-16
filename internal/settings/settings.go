@@ -30,6 +30,10 @@ type TlsConfig struct {
 	Key    string `mapstructure:"key"`
 }
 
+func init() {
+	// StartTs = time.Now().Unix()
+}
+
 func NewTlsConfig(fp, key string) (config *TlsConfig, err error) {
 	vp := viper.New()
 	vp.SetConfigType("yaml")

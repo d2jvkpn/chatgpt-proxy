@@ -4,8 +4,6 @@ import (
 	// "fmt"
 	"net/http"
 	"time"
-
-	"go.uber.org/zap"
 )
 
 const (
@@ -15,7 +13,6 @@ const (
 
 var (
 	_Server *http.Server
-	_Logger *zap.Logger
 )
 
 func init() {

@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
+
 	"go.uber.org/zap"
 )
 
@@ -33,16 +34,16 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		}
 	}
 
-	_Logger.Info("the server is starting", zap.Any("meta", meta))
+	settings.AppLogger.Info("the server is starting", zap.Any("meta", meta))
 
 	shutdown := func() {
 		var err error
 
 		ctx, cancel := context.WithTimeout(context.TODO(), 5*time.Second)
 		if err = _Server.Shutdown(ctx); err != nil {
-			_Logger.Error(fmt.Sprintf("shutdown the server : %v", err))
+			settings.AppLogger.Error(fmt.Sprintf("shutdown the server : %v", err))
 		} else {
-			_Logger.Warn("the server is shutting down")
+			settings.AppLogger.Warn("the server is shutting down")
 		}
 		cancel()
 	}

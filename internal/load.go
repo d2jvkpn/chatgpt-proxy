@@ -46,7 +46,7 @@ func Load(config string, release bool) (err error) {
 		level = zap.InfoLevel
 	}
 	settings.Logger = wrap.NewLogger("logs/chatgot-proxy.log", level, 256, nil)
-	_Logger = settings.Logger.Named("internal")
+	settings.SetupLoggers()
 
 	//
 	if release {

@@ -8,6 +8,7 @@ import (
 	"github.com/d2jvkpn/x-ai/pkg/chatgpt"
 
 	"github.com/spf13/viper"
+	"go.uber.org/zap"
 )
 
 var (
@@ -17,6 +18,10 @@ var (
 	AllowApiKeys *AllowedKeys
 	Tls          *TlsConfig
 	Logger       *wrap.Logger
+	TransLogger  *zap.Logger // transaction
+	ReqLogger    *zap.Logger // request
+	AppLogger    *zap.Logger // application
+	// DebugLogger    *zap.Logger // debug
 )
 
 type TlsConfig struct {
@@ -58,4 +63,10 @@ func GetVersion() string {
 
 func GetConfig() string {
 	return _Project.GetString("config")
+}
+
+func SetupLoggers() {
+	TransLogger = Logger.Named("transaction")
+	ReqLogger = Logger.Named("request")
+	AppLogger = Logger.Named("application")
 }

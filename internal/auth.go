@@ -41,7 +41,7 @@ func auth(ctx *gin.Context) {
 
 	// Authorization: Bearer
 	auth := ctx.Request.Header.Get("Authorization")
-	if auth == "" || strings.HasPrefix(auth, "Bearer ") {
+	if auth == "" || !strings.HasPrefix(auth, "Bearer ") {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"code": -11, "msg": "unauthorized"})
 		ctx.Abort()
 		return

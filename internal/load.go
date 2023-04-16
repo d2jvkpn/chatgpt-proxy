@@ -25,6 +25,15 @@ func Load(config string, release bool) (err error) {
 		return err
 	}
 
+	//
+	level := zap.DebugLevel
+	if release {
+		level = zap.InfoLevel
+	}
+	settings.Logger = wrap.NewLogger("logs/chatgot-proxy.log", level, 256, nil)
+	settings.SetupLoggers()
+
+	//
 	if settings.AllowIps, err = settings.NewAllowedKeys(config, "allow_ips"); err != nil {
 		return err
 	}
@@ -38,15 +47,9 @@ func Load(config string, release bool) (err error) {
 	}
 
 	if settings.AllowApiKeys.Enable && !settings.Tls.Enable {
-		return fmt.Errorf("enabled api keys without using tls")
+		msg := "enabled api keys without using tls"
+		fmt.Printf("!!! WARNING %s\n", msg)
 	}
-
-	level := zap.DebugLevel
-	if release {
-		level = zap.InfoLevel
-	}
-	settings.Logger = wrap.NewLogger("logs/chatgot-proxy.log", level, 256, nil)
-	settings.SetupLoggers()
 
 	//
 	if release {

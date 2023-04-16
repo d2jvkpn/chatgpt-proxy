@@ -34,6 +34,10 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		}
 	}
 
+	meta["allowIps"] = settings.AllowIps.Enable
+	meta["apiKeys"] = settings.AllowApiKeys.Enable
+	meta["tls"] = settings.Tls.Enable
+
 	settings.AppLogger.Info("the server is starting", zap.Any("meta", meta))
 
 	shutdown := func() {

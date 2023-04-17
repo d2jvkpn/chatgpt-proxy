@@ -25,8 +25,10 @@ go run main.go &
 
 #### test
 addr=http://localhost:3021
+# curl -i ... skip tls verification
 
 curl -i -X GET $addr/api/v1/open/version
 
 curl -i -X POST $addr/v1/chat/completions \
+  -H "Authorization: Bearer sk-xxxxxxxx" \
   -d '{"messages": [{"role":"user", "content":"What are the key elements of the best automotive photography?"}]}'

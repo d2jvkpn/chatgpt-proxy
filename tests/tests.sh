@@ -20,15 +20,19 @@ openssl x509 -req -days 365 \
 
 # using server.key and server.crt for TLS encryption
 
+#### generate api-keys, sk-x29
+tr -dc A-Za-z0-9 </dev/urandom | head -c 29; echo ''
+
 #### service
 go run main.go &
 
 #### test
-addr=http://localhost:3021
 # curl -i ... skip tls verification
+addr=http://localhost:3021
+api_key="sk-xxxxx"
 
-curl -i -X GET $addr/api/v1/open/version
+time curl -i -X GET $addr/api/v1/open/version
 
-curl -i -X POST $addr/v1/chat/completions \
-  -H "Authorization: Bearer sk-xxxxxxxx" \
+time curl -i -X POST $addr/v1/chat/completions \
+  -H "Authorization: Bearer $api_key" \
   -d '{"messages": [{"role":"user", "content":"What are the key elements of the best automotive photography?"}]}'

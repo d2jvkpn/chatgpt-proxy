@@ -16,7 +16,7 @@ config: |
     key: configs/server.key
   #
   chatgpt:
-    api_key: sk-THE_API_KEY
+    api_key: sk-xxxxx
     proxy: socks5://localhost:1081
   #
   chatgpt_example2:

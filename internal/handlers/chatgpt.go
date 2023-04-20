@@ -15,8 +15,8 @@ func chatCompl(ctx *gin.Context) {
 	var (
 		err  error
 		code int
-		req  *chatgpt.CompReq
-		res  *chatgpt.CompRes
+		req  *chatgpt.ChatCompReq
+		res  *chatgpt.ChatCompRes
 	)
 
 	defer func() {
@@ -25,7 +25,7 @@ func chatCompl(ctx *gin.Context) {
 		}
 	}()
 
-	req = new(chatgpt.CompReq)
+	req = new(chatgpt.ChatCompReq)
 	if err = ctx.BindJSON(req); err != nil {
 		code = -1
 		ctx.JSON(http.StatusBadRequest, gin.H{"code": code, "msg": "unmarshal failed"})
@@ -38,7 +38,7 @@ func chatCompl(ctx *gin.Context) {
 	}
 
 	err_msg := "failed to call third party services"
-	if res, err = settings.GPTCli.Completions(ctx, req); err != nil {
+	if res, err = settings.GPTCli.ChatCompletions(ctx, req); err != nil {
 		code = 11
 		ctx.JSON(http.StatusServiceUnavailable, gin.H{"code": code, "msg": err_msg})
 		return

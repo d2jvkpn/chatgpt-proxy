@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
@@ -15,6 +16,7 @@ import (
 
 func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 	var (
+		once     *sync.Once
 		listener net.Listener
 		cert     tls.Certificate
 	)
@@ -40,6 +42,8 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 
 	settings.AppLogger.Info("the server is starting", zap.Any("meta", meta))
 
+	once = new(sync.Once)
+
 	shutdown := func() {
 		var err error
 
@@ -64,7 +68,7 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		}
 
 		if err != http.ErrServerClosed {
-			onexit()
+			once.Do(onexit)
 			errch <- err
 		}
 	}()
@@ -73,7 +77,7 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		var err = <-errch
 		if err.Error() == MSG_Shutdown {
 			shutdown()
-			onexit()
+			once.Do(onexit)
 			errch <- nil
 		}
 	}()

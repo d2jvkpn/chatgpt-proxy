@@ -20,8 +20,8 @@ openssl x509 -req -days 365 \
 
 # using server.key and server.crt for TLS encryption
 
-#### generate api-keys, sk-x29
-tr -dc A-Za-z0-9 </dev/urandom | head -c 29; echo ''
+#### generate api-keys, sk-x32
+tr -dc A-Za-z0-9 </dev/urandom | head -c 32; echo ''
 
 #### service
 go run main.go &
@@ -35,4 +35,4 @@ time curl -i -X GET $addr/api/v1/open/version
 
 time curl -i -X POST $addr/v1/chat/completions \
   -H "Authorization: Bearer $api_key" \
-  -d '{"messages": [{"role":"user", "content":"What are the key elements of the best automotive photography?"}]}'
+  -d '{"messages": [{"role":"user", "content":"Who are you?"}]}'

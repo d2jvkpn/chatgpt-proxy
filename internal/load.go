@@ -61,6 +61,19 @@ func Load(config string, release bool) (err error) {
 	}
 	engine.Use(cors("*"))
 
+	engine.NoRoute(func(ctx *gin.Context) {
+		// ctx.Redirect(http.StatusFound, "https://example.local/" + c.Request.URL.Path)
+		// ctx.String(http.StatusNotFound, "not found")
+		settings.ReqLogger.Warn(
+			"route not found",
+			zap.String("ip", ctx.ClientIP()),
+			zap.String("method", ctx.Request.Method),
+			zap.String("url", ctx.Request.URL.String()),
+		)
+
+		ctx.JSON(http.StatusNotFound, gin.H{"code": -1, "msg": "route not found"})
+	})
+
 	router = &engine.RouterGroup
 	router.Static("/site", "./site")
 

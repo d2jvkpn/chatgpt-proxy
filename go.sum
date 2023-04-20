@@ -73,8 +73,8 @@ github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354/go.mod h1:WmhPx2Nbnht
 github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403/go.mod h1:WmhPx2Nbnhtbo57+VJT5O0JRkEi1Wbu0z5j0R8u5Hbk=
 github.com/d2jvkpn/go-web v0.0.0-20230415114337-3ae317180c48 h1:1flG8E1rd2/5uhpIrzcYJzKhkhjUabCVTuuhdds9JmM=
 github.com/d2jvkpn/go-web v0.0.0-20230415114337-3ae317180c48/go.mod h1:Y2XH2oue+M3FtIiorH4fKuaH9MtwTXi6PxwQxFFe9bM=
-github.com/d2jvkpn/x-ai v0.0.0-20230420022402-dc2d14aa59b3 h1:tFu498hbdlIowCY+NNzMQspOFocKpxX9Jd3T/ZByTO8=
-github.com/d2jvkpn/x-ai v0.0.0-20230420022402-dc2d14aa59b3/go.mod h1:CZCsUxB52fch8NHiz0QXgSk9iFKz0h2k20Pz/AVj5z8=
+github.com/d2jvkpn/x-ai v0.0.0-20230420030114-6f3a1ac80745 h1:RuD6oWyK5dO/+vNo1UpvQ53foLPc4g4/KibR0TqfsHM=
+github.com/d2jvkpn/x-ai v0.0.0-20230420030114-6f3a1ac80745/go.mod h1:CZCsUxB52fch8NHiz0QXgSk9iFKz0h2k20Pz/AVj5z8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

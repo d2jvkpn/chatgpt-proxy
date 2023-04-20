@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/d2jvkpn/chatgpt-proxy/internal/handlers"
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
@@ -77,6 +78,7 @@ func Load(config string, release bool) (err error) {
 	router = &engine.RouterGroup
 	router.Static("/site", "./site")
 
+	// TODO: apply aipLogger
 	handlers.RouteOpen(router)
 	handlers.RouteChatgpt(router, auth)
 
@@ -109,5 +111,48 @@ func cors(origin string) gin.HandlerFunc {
 			return
 		}
 		ctx.Next()
+	}
+}
+
+func logFields(ctx *gin.Context, start time.Time, lens ...uint) (fields []zap.Field) {
+	if len(lens) > 0 {
+		fields = make([]zap.Field, 0, lens[0])
+	} else {
+		fields = make([]zap.Field, 0, 6)
+	}
+
+	appendString := func(key, val string) {
+		fields = append(fields, zap.String(key, val))
+	}
+
+	// requestId := uuid.NewString()
+	appendString("ip", ctx.ClientIP())
+	appendString("method", ctx.Request.Method)
+	appendString("path", ctx.Request.URL.Path)
+	appendString("query", ctx.Request.URL.RawQuery)
+
+	status := ctx.Writer.Status()
+	latencyMs := float64(time.Since(start).Microseconds()) / 1e3
+
+	fields = append(fields, zap.Int("status", status))
+	fields = append(fields, zap.Float64("latencyMs", latencyMs))
+
+	return fields
+}
+
+func aipLogger(ctx *gin.Context) {
+	start := time.Now()
+	ctx.Next()
+
+	fields := logFields(ctx, start)
+
+	status := ctx.Writer.Status()
+	switch {
+	case status < 400:
+		settings.ReqLogger.Info("api request", fields...)
+	case status < 500:
+		settings.ReqLogger.Warn("api request", fields...)
+	default:
+		settings.ReqLogger.Error("api request", fields...)
 	}
 }

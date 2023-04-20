@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func completions(ctx *gin.Context) {
+func chatCompl(ctx *gin.Context) {
 	var (
 		err  error
 		code int
@@ -47,7 +47,7 @@ func completions(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
-func imggen(ctx *gin.Context) {
+func imgGen(ctx *gin.Context) {
 	var (
 		err  error
 		code int

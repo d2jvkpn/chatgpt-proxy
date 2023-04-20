@@ -4,8 +4,9 @@ go 1.20
 
 require (
 	github.com/d2jvkpn/go-web v0.0.0-20230415114337-3ae317180c48
-	github.com/d2jvkpn/x-ai v0.0.0-20230420030114-6f3a1ac80745
+	github.com/d2jvkpn/x-ai v0.0.0-20230420043723-728eea68697e
 	github.com/gin-gonic/gin v1.9.0
+	github.com/sashabaranov/go-openai v1.9.0
 	github.com/spf13/viper v1.15.0
 	go.uber.org/zap v1.24.0
 )

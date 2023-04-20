@@ -73,8 +73,8 @@ github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354/go.mod h1:WmhPx2Nbnht
 github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403/go.mod h1:WmhPx2Nbnhtbo57+VJT5O0JRkEi1Wbu0z5j0R8u5Hbk=
 github.com/d2jvkpn/go-web v0.0.0-20230415114337-3ae317180c48 h1:1flG8E1rd2/5uhpIrzcYJzKhkhjUabCVTuuhdds9JmM=
 github.com/d2jvkpn/go-web v0.0.0-20230415114337-3ae317180c48/go.mod h1:Y2XH2oue+M3FtIiorH4fKuaH9MtwTXi6PxwQxFFe9bM=
-github.com/d2jvkpn/x-ai v0.0.0-20230420030114-6f3a1ac80745 h1:RuD6oWyK5dO/+vNo1UpvQ53foLPc4g4/KibR0TqfsHM=
-github.com/d2jvkpn/x-ai v0.0.0-20230420030114-6f3a1ac80745/go.mod h1:CZCsUxB52fch8NHiz0QXgSk9iFKz0h2k20Pz/AVj5z8=
+github.com/d2jvkpn/x-ai v0.0.0-20230420043723-728eea68697e h1:JgAVepqQgYeGsrrj1Zl8+sUkzKDm4CTpGrfCJck1Glg=
+github.com/d2jvkpn/x-ai v0.0.0-20230420043723-728eea68697e/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -307,6 +307,8 @@ github.com/prometheus/procfs v0.0.8/go.mod h1:7Qr8sr6344vo1JqZ6HhLceV9o3AJ1Ff+Gx
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rogpeppe/go-internal v1.6.1 h1:/FiVV8dS/e+YqF2JvO3yXRFbBLTIuSDkuC7aBOAvL+k=
 github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb6uqfes/u+d4ooFouqFdy9/2g9QGwK3SQygK0Ts=
+github.com/sashabaranov/go-openai v1.9.0 h1:NoiO++IISxxJ1pRc0n7uZvMGMake0G+FJ1XPwXtprsA=
+github.com/sashabaranov/go-openai v1.9.0/go.mod h1:lj5b/K+zjTSFxVLijLSTDZuP7adOgerWeFyZLUhAKRg=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529 h1:nn5Wsu0esKSJiIVhscUtVbo7ada43DJhG55ua/hjS5I=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
 github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=

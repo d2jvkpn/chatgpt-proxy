@@ -10,7 +10,8 @@ import (
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
 
 	"github.com/d2jvkpn/go-web/pkg/wrap"
-	"github.com/d2jvkpn/x-ai/pkg/chatgpt"
+	// "github.com/d2jvkpn/x-ai/pkg/chatgpt"
+	xwrap "github.com/d2jvkpn/x-ai/pkg/wrap"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -22,7 +23,13 @@ func Load(config string, release bool) (err error) {
 	)
 
 	//
-	if settings.GPTCli, err = chatgpt.NewClient(config, "chatgpt"); err != nil {
+	/*
+		if settings.GPTCli, err = chatgpt.NewClient(config, "chatgpt"); err != nil {
+			return err
+		}
+	*/
+
+	if settings.GPTCli2, err = xwrap.NewOpenAiClient(config, "chatgpt"); err != nil {
 		return err
 	}
 

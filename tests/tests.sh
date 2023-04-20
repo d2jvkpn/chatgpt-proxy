@@ -35,4 +35,4 @@ time curl -i -X GET $addr/api/v1/open/version
 
 time curl -i -X POST $addr/v1/chat/completions \
   -H "Authorization: Bearer $api_key" \
-  -d '{"messages": [{"role":"user", "content":"Who are you?"}]}'
+  -d '{"model": "gpt-3.5-turbo", "messages": [{"role":"user", "content":"Who are you?"}]}'

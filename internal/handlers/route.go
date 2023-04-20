@@ -24,8 +24,14 @@ func RouteOpen(router *gin.RouterGroup, handers ...gin.HandlerFunc) {
 
 func RouteChatgpt(router *gin.RouterGroup, handers ...gin.HandlerFunc) {
 	group := router.Group("/v1", handers...)
+	group.GET("/models", listModels)
+	group.POST("/completions", createCompletions)
 
-	group.POST("/chat/completions", chatCompl)
-	group.POST("/images/generations", imgGen)
-	group.GET("/models", models)
+	group.POST("/chat/completions", createChatCompletions)
+
+	group.POST("/images/generations", createImage)
+	group.POST("/images/edits", createEditImage)
+	group.POST("/images/variations", createVariImage)
+
+	group.POST("/embeddings", createEmbeddings)
 }

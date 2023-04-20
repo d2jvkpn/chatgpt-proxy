@@ -5,14 +5,16 @@ import (
 	"strings"
 
 	"github.com/d2jvkpn/go-web/pkg/wrap"
-	"github.com/d2jvkpn/x-ai/pkg/chatgpt"
+	// "github.com/d2jvkpn/x-ai/pkg/chatgpt"
 
+	openai "github.com/sashabaranov/go-openai"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
 
 var (
-	GPTCli       *chatgpt.Client
+	// GPTCli       *chatgpt.Client
+	GPTCli2      *openai.Client
 	_Project     *viper.Viper
 	AllowIps     *AllowedKeys
 	AllowApiKeys *AllowedKeys

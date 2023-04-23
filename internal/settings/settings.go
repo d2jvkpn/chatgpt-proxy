@@ -5,8 +5,6 @@ import (
 	"strings"
 
 	"github.com/d2jvkpn/go-web/pkg/wrap"
-	"github.com/d2jvkpn/x-ai/pkg/lang_chain"
-
 	openai "github.com/sashabaranov/go-openai"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -17,7 +15,7 @@ var (
 
 	// GPTCli       *chatgpt.Client
 	GPTCli2 *openai.Client
-	LCC     *lang_chain.LCC
+	LCA     *LangChainAgent
 
 	AllowIps     *AllowedKeys
 	AllowApiKeys *AllowedKeys

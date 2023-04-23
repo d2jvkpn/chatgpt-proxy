@@ -10,7 +10,6 @@ import (
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
 
 	"github.com/d2jvkpn/go-web/pkg/wrap"
-	"github.com/d2jvkpn/x-ai/pkg/lang_chain"
 	xwrap "github.com/d2jvkpn/x-ai/pkg/wrap"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -42,7 +41,10 @@ func Load(config string, release bool) (err error) {
 		return err
 	}
 
-	settings.LCC, err = lang_chain.NewLCC(vp.GetString("chatgpt.api_key"), "wk_lang_chain")
+	settings.LCA, err = settings.NewLangChainAgent(
+		vp.GetString("chatgpt.api_key"),
+		"wk_lang_chain",
+	)
 	if err != nil {
 		return
 	}

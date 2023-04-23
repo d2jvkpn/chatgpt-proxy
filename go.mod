@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/d2jvkpn/go-web v0.0.0-20230423113819-40c514cd0894
-	github.com/d2jvkpn/x-ai v0.0.0-20230423122802-d9b3a2d4cf5d
+	github.com/d2jvkpn/x-ai v0.0.0-20230423140844-9815cb9f3627
 	github.com/gin-gonic/gin v1.9.0
 	github.com/sashabaranov/go-openai v1.9.0
 	github.com/spf13/viper v1.15.0
@@ -24,7 +24,6 @@ require (
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/consul/api v1.20.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-hclog v1.5.0 // indirect

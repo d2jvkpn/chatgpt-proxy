@@ -10,17 +10,26 @@ import (
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
 
 	"github.com/d2jvkpn/go-web/pkg/wrap"
-	// "github.com/d2jvkpn/x-ai/pkg/chatgpt"
+	"github.com/d2jvkpn/x-ai/pkg/lang_chain"
 	xwrap "github.com/d2jvkpn/x-ai/pkg/wrap"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
 
 func Load(config string, release bool) (err error) {
 	var (
+		vp     *viper.Viper
 		engine *gin.Engine
 		router *gin.RouterGroup
 	)
+
+	vp = viper.New()
+	vp.SetConfigType("yaml")
+	vp.SetConfigFile(config)
+	if err = vp.ReadInConfig(); err != nil {
+		return err
+	}
 
 	//
 	/*
@@ -31,6 +40,11 @@ func Load(config string, release bool) (err error) {
 
 	if settings.GPTCli2, err = xwrap.NewOpenAiClient(config, "chatgpt"); err != nil {
 		return err
+	}
+
+	settings.LCC, err = lang_chain.NewLCC(vp.GetString("chatgpt.api_key"), "wk_lang_chain")
+	if err != nil {
+		return
 	}
 
 	//

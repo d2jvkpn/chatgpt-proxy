@@ -3,8 +3,8 @@ module github.com/d2jvkpn/chatgpt-proxy
 go 1.20
 
 require (
-	github.com/d2jvkpn/go-web v0.0.0-20230415114337-3ae317180c48
-	github.com/d2jvkpn/x-ai v0.0.0-20230420043723-728eea68697e
+	github.com/d2jvkpn/go-web v0.0.0-20230423113819-40c514cd0894
+	github.com/d2jvkpn/x-ai v0.0.0-20230423122802-d9b3a2d4cf5d
 	github.com/gin-gonic/gin v1.9.0
 	github.com/sashabaranov/go-openai v1.9.0
 	github.com/spf13/viper v1.15.0
@@ -58,12 +58,12 @@ require (
 	go.uber.org/goleak v1.2.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.3.0 // indirect
-	golang.org/x/crypto v0.7.0 // indirect
-	golang.org/x/exp v0.0.0-20230321023759-10a507213a29 // indirect
+	golang.org/x/crypto v0.8.0 // indirect
+	golang.org/x/exp v0.0.0-20230420155640-133eef4313cb // indirect
 	golang.org/x/net v0.9.0 // indirect
 	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
-	google.golang.org/genproto v0.0.0-20230403163135-c38d8f061ccd // indirect
+	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 	google.golang.org/grpc v1.54.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect

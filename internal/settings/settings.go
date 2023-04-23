@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/d2jvkpn/go-web/pkg/wrap"
-	// "github.com/d2jvkpn/x-ai/pkg/chatgpt"
+	"github.com/d2jvkpn/x-ai/pkg/lang_chain"
 
 	openai "github.com/sashabaranov/go-openai"
 	"github.com/spf13/viper"
@@ -13,16 +13,20 @@ import (
 )
 
 var (
+	_Project *viper.Viper
+
 	// GPTCli       *chatgpt.Client
-	GPTCli2      *openai.Client
-	_Project     *viper.Viper
+	GPTCli2 *openai.Client
+	LCC     *lang_chain.LCC
+
 	AllowIps     *AllowedKeys
 	AllowApiKeys *AllowedKeys
 	Tls          *TlsConfig
-	Logger       *wrap.Logger
-	TransLogger  *zap.Logger // transaction
-	ReqLogger    *zap.Logger // request
-	AppLogger    *zap.Logger // application
+
+	Logger      *wrap.Logger
+	TransLogger *zap.Logger // transaction
+	ReqLogger   *zap.Logger // request
+	AppLogger   *zap.Logger // application
 	// DebugLogger    *zap.Logger // debug
 )
 

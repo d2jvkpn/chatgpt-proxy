@@ -20,7 +20,9 @@ config: |
     proxy: socks5://localhost:1081
   #
   chatgpt_example2:
-    url: http://127.0.0.1:8080
+    # with suffix /v1 for github.com/sashabaranov/go-openai
+    url: http://127.0.0.1:8080/v1
   chatgpt_example3:
-    url: https://127.0.0.1:8080
+    # with suffix /v1 for github.com/sashabaranov/go-openai
+    url: https://127.0.0.1:8080/v1
     tls_skip_verify: true

@@ -9,7 +9,7 @@ mkdir -p configs
 openssl genrsa -out configs/server.key 2048
 
 openssl req -new \
-  -subj "/CN=example.com/O=My Organization/C=US" \
+  -subj "/CN=127.0.0.1/O=My Organization/C=US" \
   -key configs/server.key \
   -out configs/server.csr
 

@@ -199,3 +199,45 @@ func createEmbeddings(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, res)
 }
+
+func listEngines(ctx *gin.Context) {
+	var (
+		err      error
+		apiError *openai.APIError
+		res      openai.EnginesList
+	)
+
+	defer func() {
+		if err != nil {
+			log.Printf("!!! listEngines error: %+v\n", apiError)
+		}
+	}()
+
+	if res, err = settings.GPTCli2.ListEngines(ctx); err != nil {
+		apiError, _ = HandleError(ctx, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, res)
+}
+
+func listEngines(ctx *gin.Context) {
+	var (
+		err      error
+		apiError *openai.APIError
+		res      openai.EnginesList
+	)
+
+	defer func() {
+		if err != nil {
+			log.Printf("!!! listEngines error: %+v\n", apiError)
+		}
+	}()
+
+	if res, err = settings.GPTCli2.ListEngines(ctx); err != nil {
+		apiError, _ = HandleError(ctx, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, res)
+}

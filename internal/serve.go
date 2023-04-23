@@ -68,7 +68,7 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		}
 
 		if err != http.ErrServerClosed {
-			once.Do(onexit)
+			once.Do(onExit)
 			errch <- err
 		}
 	}()
@@ -77,7 +77,7 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		var err = <-errch
 		if err.Error() == MSG_Shutdown {
 			shutdown()
-			once.Do(onexit)
+			once.Do(onExit)
 			errch <- nil
 		}
 	}()
@@ -85,6 +85,6 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 	return errch, nil
 }
 
-func onexit() {
+func onExit() {
 	settings.Logger.Down()
 }

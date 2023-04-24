@@ -9,15 +9,13 @@ function onExit {
 }
 trap onExit EXIT
 
-build_vendor=$(printenv BUILD_Vendor || true)
-
 ####
 gitBranch=$1
 image="registry.cn-shanghai.aliyuncs.com/d2jvkpn/chatgpt-proxy"
 tag=$gitBranch
 
 git checkout $gitBranch
-[[ "$build_vendor" != "true" ]] && git pull --no-edit
+git pull --no-edit
 
 buildTime=$(date +'%FT%T%:z')
 gitBranch="$(git rev-parse --abbrev-ref HEAD)" # current branch
@@ -30,15 +28,13 @@ unpushed=$(git diff origin/$gitBranch..HEAD --name-status)
 [[ ! -z "$uncommitted$unpushed" ]] && gitTreeState="dirty"
 
 ####
-if [[ "$build_vendor" != "true" ]]; then
-    for base in $(awk '/^FROM/{print $2}' ${_path}/Dockerfile); do
-        echo ">>> pull $bae"
-        docker pull $base
-        bn=$(echo $base | awk -F ":" '{print $1}')
-        if [[ -z "$bn" ]]; then continue; fi
-        docker images --filter "dangling=true" --quiet "$bn" | xargs -i docker rmi {}
-    done &> /dev/null
-fi
+for base in $(awk '/^FROM/{print $2}' ${_path}/Dockerfile); do
+    echo ">>> pull $bae"
+    docker pull $base
+    bn=$(echo $base | awk -F ":" '{print $1}')
+    if [[ -z "$bn" ]]; then continue; fi
+    docker images --filter "dangling=true" --quiet "$bn" | xargs -i docker rmi {}
+done &> /dev/null
 
 echo ">>> build image: $image:$tag..."
 
@@ -47,7 +43,6 @@ ldflags="-X main.buildTime=$buildTime -X main.gitBranch=$gitBranch \
   -X main.gitTreeState=$gitTreeState"
 
 df=${_path}/Dockerfile
-[[ "$build_vendor" == "true" ]] && df=${_path}/Dockerfile.vendor
 
 docker build --no-cache --file $df --build-arg=ldflags="$ldflags" --tag $image:$tag ./
 

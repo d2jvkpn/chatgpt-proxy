@@ -38,8 +38,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
   apk --no-cache add tzdata python3 &> /dev/null
 
 RUN python3 -m ensurepip && \
-  pip3 config set global.index-url 'https://pypi.douban.com/simple/' &&
-  pip3 config set install.trusted-host 'pypi.douban/simple' &&
+  pip3 config set global.index-url 'https://pypi.douban.com/simple/' && \
+  pip3 config set install.trusted-host 'pypi.douban/simple' &&  \
   pip3 install ipython && \
   pip3 install pip.txt && \
   rm -r /home/hello/.cache/

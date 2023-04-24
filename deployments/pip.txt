@@ -1,0 +1,9 @@
+tiktoken
+numpy
+openai[datalib]
+langchain
+openai
+faiss-cpu
+faiss-gpu
+yaml
+textract

@@ -7,12 +7,13 @@ WORKDIR /opt/chatgpt-proxy
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
   apk --no-cache update &> /dev/null && \
-  apk --no-cache upgrade &> /dev/null
+  apk --no-cache upgrade &> /dev/null && \
+  apk --no-cache add tzdata
 
-COPY ./main.go ./go.mod ./go.sum ./project.yaml  /opt/chatgpt-proxy/
-COPY ./internal /opt/chatgpt-proxy/internal
-# COPY ./pkg      /opt/chatgpt-proxy/pkg
-# COPY ./vendor   /opt/chatgpt-proxy/vendor
+ADD ./main.go ./go.mod ./go.sum ./project.yaml  ./
+COPY ./internal ./internal
+# COPY ./pkg     ./pkg
+# COPY ./vendor  ./vendor
 
 # in alpine, date doesn't parse %:z
 RUN go env -w GOPROXY="https://goproxy.cn,direct" && \
@@ -22,14 +23,26 @@ RUN go env -w GOPROXY="https://goproxy.cn,direct" && \
 FROM alpine
 
 ENV TZ="Asia/Shanghai"
-WORKDIR /opt/chatgpt-proxy
 
-COPY --from=builder /opt/chatgpt-proxy/main /opt/chatgpt-proxy/main
+# RUN useradd -m -s /bin/bash hello
+RUN useradd -u 1000 -m hello
+USER hello
+ENV PATH="/home/hello/.local/bin:$PATH"
+WORKDIR /home/hello/chatgpt-proxy
+
+COPY --from=builder /opt/chatgpt-proxy/main ./main
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
   apk --no-cache update &> /dev/null && \
   apk --no-cache upgrade &> /dev/null && \
-  apk --no-cache add tzdata &> /dev/null
+  apk --no-cache add tzdata python3 &> /dev/null
+
+RUN python3 -m ensurepip && \
+  pip3 config set global.index-url 'https://pypi.douban.com/simple/' &&
+  pip3 config set install.trusted-host 'pypi.douban/simple' &&
+  pip3 install ipython && \
+  pip3 install pip.txt && \
+  rm -r /home/hello/.cache/
 
 EXPOSE 3020
 CMD ["./main", "--addr=:3020", "--config=configs/prod.yaml", "--release"]

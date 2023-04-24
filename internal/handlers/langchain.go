@@ -2,6 +2,7 @@ package handlers
 
 import (
 	// "net/http"
+	"log"
 
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
 
@@ -9,9 +10,17 @@ import (
 )
 
 func langChainIndex(ctx *gin.Context) {
-	_, _ = settings.LCA.HandleIndex(ctx)
+	var err error
+
+	if _, err = settings.LCA.HandleIndex(ctx); err != nil {
+		log.Fatalf("!!! langChainIndex: %v\n", err)
+	}
 }
 
 func langChainQuery(ctx *gin.Context) {
-	_ = settings.LCA.HandleQuery(ctx)
+	var err error
+
+	if err = settings.LCA.HandleQuery(ctx); err != nil {
+		log.Fatalf("!!! langChainQuery: %v\n", err)
+	}
 }

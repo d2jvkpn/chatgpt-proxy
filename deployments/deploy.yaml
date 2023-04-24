@@ -11,8 +11,8 @@ services:
     ports: ["${PORT}:${PORT}"]
     environment: ["TZ=Asia/Shanghai"]
     volumes:
-    - ./configs/:/opt/chatgpt-proxy/configs/
-    - ./logs/:/opt/chatgpt-proxy/logs/
+    - ./configs/:/home/hello/chatgpt-proxy/configs/
+    - ./logs/:/home/hello/chatgpt-proxy/logs/
     command: ["./main", "--config=configs/${APP_ENV}.yaml", "--addr=:${PORT}", "--release"]
 
 networks:

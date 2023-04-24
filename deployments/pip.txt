@@ -5,5 +5,5 @@ langchain
 openai
 faiss-cpu
 faiss-gpu
-yaml
+pyyaml
 textract

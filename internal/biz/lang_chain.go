@@ -1,9 +1,10 @@
 package biz
 
 import (
-	// "context"
+	"context"
 	"errors"
 	"fmt"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -47,6 +48,20 @@ func (lca *LangChainAgent) Filename(name string) (ext string, err error) {
 		return "docx", nil
 	default:
 		return "", fmt.Errorf("unknow file type(ext)")
+	}
+}
+
+func (lca *LangChainAgent) PyIndex(prefix string) {
+	var err error
+
+	if err = lca.LangChain.PyIndex(context.TODO(), prefix+".tmp.yaml", prefix); err != nil {
+		log.Printf("!!! PyIndex: %v\n", err)
+		return
+	}
+
+	if err = os.Rename(prefix+".tmp.yaml", prefix+".yaml"); err != nil {
+		log.Printf("!!! PyIndex: %v\n", err)
+		return
 	}
 }
 
@@ -118,18 +133,21 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 		}
 	}
 
-	if err = index.SaveYaml(prefix + ".yaml"); err != nil {
+	if err = index.SaveYaml(prefix + ".tmp.yaml"); err != nil {
 		msg = "internal error"
 		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 3, "msg": msg})
 		return "", err
 	}
 
 	// TODO: ?? async
-	if err = lca.LangChain.PyIndex(ctx, prefix+".yaml", prefix); err != nil {
-		msg = "internal error"
-		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 4, "msg": msg})
-		return "", err
-	}
+	/*
+		if err = lca.LangChain.PyIndex(ctx, prefix+".tmp.yaml", prefix); err != nil {
+			msg = "internal error"
+			ctx.JSON(http.StatusInternalServerError, gin.H{"code": 4, "msg": msg})
+			return "", err
+		}
+	*/
+	go lca.PyIndex(prefix)
 
 	ctx.JSON(http.StatusOK, gin.H{"code": 0, "msg": msg, "data": gin.H{"faissIndex": indexName}})
 	return indexName, nil

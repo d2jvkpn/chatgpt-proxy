@@ -31,9 +31,9 @@ unpushed=$(git diff origin/$gitBranch..HEAD --name-status)
 
 ####
 if [[ "$build_vendor" != "true" ]]; then
-    echo ">>> pull images..."
     for base in $(awk '/^FROM/{print $2}' ${_path}/Dockerfile); do
-        docker pull --quiet $base
+        echo ">>> pull $bae"
+        docker pull $base
         bn=$(echo $base | awk -F ":" '{print $1}')
         if [[ -z "$bn" ]]; then continue; fi
         docker images --filter "dangling=true" --quiet "$bn" | xargs -i docker rmi {}

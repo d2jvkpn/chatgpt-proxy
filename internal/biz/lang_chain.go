@@ -111,7 +111,7 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 			ctx.JSON(http.StatusBadRequest, gin.H{"code": -2, "msg": msg})
 			return "", fmt.Errorf(msg)
 		}
-		fp := fmt.Sprintf("%s_%03d.%s", prefix, idx, ext)
+		fp := fmt.Sprintf("%s_doc%03d.%s", prefix, idx, ext)
 
 		index.Sources = append(index.Sources, lang_chain.Source{
 			Name:   fh.Filename,

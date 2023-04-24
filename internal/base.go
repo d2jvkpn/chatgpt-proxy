@@ -12,6 +12,7 @@ const (
 )
 
 var (
+	_Tls    *TlsConfig
 	_Server *http.Server
 )
 
@@ -24,4 +25,12 @@ func init() {
 		// Addr:              addr,
 		// Handler: engine,
 	}
+}
+
+func TlsEnabled() bool {
+	if _Tls == nil {
+		return false
+	}
+
+	return _Tls.Enable
 }

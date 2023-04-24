@@ -25,8 +25,8 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		return nil, err
 	}
 
-	if settings.Tls.Enable {
-		cert, err = tls.LoadX509KeyPair(settings.Tls.Crt, settings.Tls.Key)
+	if _Tls.Enable {
+		cert, err = tls.LoadX509KeyPair(_Tls.Cert, _Tls.Key)
 		if err != nil {
 			return nil, err
 		}
@@ -38,7 +38,7 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 
 	meta["allowIps"] = settings.AllowIps.Enable
 	meta["apiKeys"] = settings.AllowApiKeys.Enable
-	meta["tls"] = settings.Tls.Enable
+	meta["tls"] = _Tls.Enable
 
 	settings.AppLogger.Info("the server is starting", zap.Any("meta", meta))
 

@@ -35,3 +35,11 @@ func RouteChatgpt(router *gin.RouterGroup, handers ...gin.HandlerFunc) {
 
 	group.POST("/embeddings", createEmbeddings)
 }
+
+func RouteAuth(router *gin.RouterGroup, handers ...gin.HandlerFunc) {
+	group := router.Group("/api/v1/auth", handers...)
+
+	lang_chain := group.Group("/lang_chain")
+	lang_chain.POST("/index", langChainIndex)
+	lang_chain.POST("/query", langChainQuery)
+}

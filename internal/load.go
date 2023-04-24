@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/d2jvkpn/chatgpt-proxy/internal/biz"
 	"github.com/d2jvkpn/chatgpt-proxy/internal/handlers"
 	"github.com/d2jvkpn/chatgpt-proxy/internal/settings"
 
@@ -41,12 +42,14 @@ func Load(config string, release bool) (err error) {
 		return err
 	}
 
-	settings.LCA, err = settings.NewLangChainAgent(
-		vp.GetString("chatgpt.api_key"),
-		"wk_lang_chain",
-	)
+	settings.LCA, err = biz.NewLangChainAgent(vp.GetString("chatgpt.api_key"), "wk_lang_chain")
 	if err != nil {
 		return
+	}
+
+	//
+	if _Tls, err = NewTlsConfig(config, "tls"); err != nil {
+		return err
 	}
 
 	//
@@ -66,11 +69,7 @@ func Load(config string, release bool) (err error) {
 		return err
 	}
 
-	if settings.Tls, err = settings.NewTlsConfig(config, "tls"); err != nil {
-		return err
-	}
-
-	if settings.AllowApiKeys.Enable && !settings.Tls.Enable {
+	if settings.AllowApiKeys.Enable && !_Tls.Enable {
 		msg := "enabled api keys without using tls"
 		fmt.Printf("!!! WARNING %s\n", msg)
 	}
@@ -104,6 +103,7 @@ func Load(config string, release bool) (err error) {
 	// TODO: apply aipLogger
 	handlers.RouteOpen(router)
 	handlers.RouteChatgpt(router, auth)
+	handlers.RouteAuth(router, auth)
 
 	_Server.Handler = engine
 

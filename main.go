@@ -68,7 +68,7 @@ func main() {
 		log.Fatalln(err)
 	}
 	protocol := "http"
-	if settings.Tls.Enable {
+	if internal.TlsEnabled() {
 		protocol = "https"
 	}
 

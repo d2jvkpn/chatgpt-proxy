@@ -24,3 +24,4 @@ target/
 # files
 docker-compose.yaml
 site/
+data/

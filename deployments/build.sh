@@ -29,12 +29,12 @@ unpushed=$(git diff origin/$gitBranch..HEAD --name-status)
 
 ####
 for base in $(awk '/^FROM/{print $2}' ${_path}/Dockerfile); do
-    echo ">>> pull $bae"
+    echo ">>> pull $base"
     docker pull $base
     bn=$(echo $base | awk -F ":" '{print $1}')
     if [[ -z "$bn" ]]; then continue; fi
     docker images --filter "dangling=true" --quiet "$bn" | xargs -i docker rmi {}
-done &> /dev/null
+done
 
 echo ">>> build image: $image:$tag..."
 

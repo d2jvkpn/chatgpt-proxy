@@ -42,7 +42,7 @@ func Load(config string, release bool) (err error) {
 		return err
 	}
 
-	settings.LCA, err = biz.NewLangChainAgent(vp.GetString("chatgpt.api_key"), "data/lang_chain")
+	settings.LCA, err = biz.NewLangChainAgent(vp.GetString("chatgpt.api_key"), "data/langchain")
 	if err != nil {
 		return
 	}

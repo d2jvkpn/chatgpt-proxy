@@ -56,12 +56,12 @@ func (lca *LangChainAgent) PyIndex(prefix string) {
 	log.Printf("==> PyIndex start: %s\n", prefix)
 
 	if err = lca.LangChain.PyIndex(context.TODO(), prefix+".tmp.yaml", prefix); err != nil {
-		log.Printf("!!! PyIndex: %v\n", err)
+		log.Printf("!!! PyIndex faiss index: %v\n", err)
 		return
 	}
 
 	if err = os.Rename(prefix+".tmp.yaml", prefix+".yaml"); err != nil {
-		log.Printf("!!! PyIndex: %v\n", err)
+		log.Printf("!!! PyIndex move yaml: %v\n", err)
 		return
 	}
 
@@ -194,7 +194,7 @@ func (lca *LangChainAgent) HandleQuery(ctx *gin.Context) (err error) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 2, msg: msg})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"code": 0, msg: msg, "data": gin.H{"ans": ans}})
+	ctx.JSON(http.StatusOK, gin.H{"code": 0, msg: msg, "data": gin.H{"answer": ans}})
 
 	return nil
 }

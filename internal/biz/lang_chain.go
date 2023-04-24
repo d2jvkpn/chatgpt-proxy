@@ -53,6 +53,7 @@ func (lca *LangChainAgent) Filename(name string) (ext string, err error) {
 
 func (lca *LangChainAgent) PyIndex(prefix string) {
 	var err error
+	log.Printf("==> PyIndex start: %s\n", prefix)
 
 	if err = lca.LangChain.PyIndex(context.TODO(), prefix+".tmp.yaml", prefix); err != nil {
 		log.Printf("!!! PyIndex: %v\n", err)
@@ -63,6 +64,8 @@ func (lca *LangChainAgent) PyIndex(prefix string) {
 		log.Printf("!!! PyIndex: %v\n", err)
 		return
 	}
+
+	log.Printf("==> PyIndex end: %s\n", prefix)
 }
 
 func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err error) {

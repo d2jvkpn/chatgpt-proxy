@@ -24,8 +24,8 @@ FROM alpine
 
 ENV TZ="Asia/Shanghai"
 
-# RUN useradd -m -s /bin/bash hello
-RUN useradd -u 1000 -m hello
+# RUN useradd -m -u 1000 -s /bin/bash hello
+RUN adduser -D -u 1000 hello
 USER hello
 ENV PATH="/home/hello/.local/bin:$PATH"
 WORKDIR /home/hello/chatgpt-proxy

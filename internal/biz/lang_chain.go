@@ -114,9 +114,10 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 		fp := fmt.Sprintf("%s_doc%03d.%s", prefix, idx, ext)
 
 		index.Sources = append(index.Sources, lang_chain.Source{
-			Name:   fh.Filename,
+			Title:  fh.Filename,
 			Type:   ext,
 			Source: filepath.Base(fp),
+			Size:   fh.Size,
 		})
 
 		list = append(list, fp)

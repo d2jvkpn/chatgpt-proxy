@@ -1,0 +1,3 @@
+ipython
+pypdf
+PyPDF2

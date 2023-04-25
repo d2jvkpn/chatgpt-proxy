@@ -13,7 +13,7 @@ func langChainIndex(ctx *gin.Context) {
 	var err error
 
 	if _, err = settings.LCA.HandleIndex(ctx); err != nil {
-		log.Fatalf("!!! langChainIndex: %v\n", err)
+		log.Printf("!!! langChainIndex: %v\n", err)
 	}
 }
 
@@ -21,6 +21,6 @@ func langChainQuery(ctx *gin.Context) {
 	var err error
 
 	if err = settings.LCA.HandleQuery(ctx); err != nil {
-		log.Fatalf("!!! langChainQuery: %v\n", err)
+		log.Printf("!!! langChainQuery: %v\n", err)
 	}
 }

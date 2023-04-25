@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 
@@ -19,6 +20,7 @@ import (
 
 type LangChainAgent struct {
 	*lang_chain.LangChain
+	indexCh chan struct{}
 }
 
 type ChainQuery struct {
@@ -32,6 +34,7 @@ func NewLangChainAgent(key, path string) (lca *LangChainAgent, err error) {
 	if lca.LangChain, err = lang_chain.NewLangChain(key, path); err != nil {
 		return nil, err
 	}
+	lca.indexCh = make(chan struct{}, runtime.NumCPU())
 
 	return lca, nil
 }
@@ -53,6 +56,12 @@ func (lca *LangChainAgent) Filename(name string) (ext string, err error) {
 
 func (lca *LangChainAgent) PyIndex(prefix string) {
 	var err error
+
+	lca.indexCh <- struct{}{}
+	defer func() {
+		<-lca.indexCh
+	}()
+
 	log.Printf("==> PyIndex start: %s\n", prefix)
 
 	if err = lca.LangChain.PyIndex(context.TODO(), prefix+".tmp.yaml", prefix); err != nil {
@@ -181,21 +190,21 @@ func (lca *LangChainAgent) HandleQuery(ctx *gin.Context) (err error) {
 	if _, err = os.Stat(prefix + ".yaml"); err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			msg = "faissIndex not exists"
-			ctx.JSON(http.StatusNotAcceptable, gin.H{"code": -3, msg: msg})
+			ctx.JSON(http.StatusNotAcceptable, gin.H{"code": -3, "msg": msg})
 			return
 		}
 
 		msg = "internal error"
-		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 1, msg: msg})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 1, "msg": msg})
 		return
 	}
 
 	if ans, err = lca.PyQuery(ctx, prefix, query.Query); err != nil {
 		msg = "internal error"
-		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 2, msg: msg})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 2, "msg": msg})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"code": 0, msg: msg, "data": gin.H{"answer": ans}})
+	ctx.JSON(http.StatusOK, gin.H{"code": 0, "msg": msg, "data": gin.H{"answer": ans}})
 
 	return nil
 }

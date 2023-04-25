@@ -79,6 +79,8 @@ github.com/d2jvkpn/x-ai v0.0.0-20230424234217-80c46dedc4db h1:vuFtqbAhsDvAWWN10Q
 github.com/d2jvkpn/x-ai v0.0.0-20230424234217-80c46dedc4db/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
 github.com/d2jvkpn/x-ai v0.0.0-20230425015648-4d690f38737e h1:+TKEyXhgacwG5uJHnwl5C2gvRfGdoS6tyNAe7yJx3Tc=
 github.com/d2jvkpn/x-ai v0.0.0-20230425015648-4d690f38737e/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
+github.com/d2jvkpn/x-ai v0.0.0-20230425024742-a91b480f5fae h1:GeHqtA9zGfUmtSpy+C8bL7W9nySU8e9FD5abDZ+Vaok=
+github.com/d2jvkpn/x-ai v0.0.0-20230425024742-a91b480f5fae/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

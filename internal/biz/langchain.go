@@ -13,13 +13,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/d2jvkpn/x-ai/pkg/lang_chain"
+	"github.com/d2jvkpn/x-ai/pkg/langchain"
 	// "github.com/google/uuid"
 	"github.com/gin-gonic/gin"
 )
 
 type LangChainAgent struct {
-	*lang_chain.LangChain
+	*langchain.LangChain
 	indexCh chan struct{}
 }
 
@@ -31,7 +31,7 @@ type ChainQuery struct {
 func NewLangChainAgent(key, path string) (lca *LangChainAgent, err error) {
 	lca = new(LangChainAgent)
 
-	if lca.LangChain, err = lang_chain.NewLangChain(key, path); err != nil {
+	if lca.LangChain, err = langchain.NewLangChain(key, path); err != nil {
 		return nil, err
 	}
 	lca.indexCh = make(chan struct{}, runtime.NumCPU())
@@ -86,7 +86,7 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 		fh          *multipart.FileHeader
 		form        *multipart.Form
 		files       []*multipart.FileHeader
-		index       *lang_chain.FaissIndex
+		index       *langchain.FaissIndex
 	)
 
 	msg = "ok"
@@ -101,8 +101,8 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 		return "", fmt.Errorf(msg)
 	}
 
-	sources := make([]lang_chain.Source, 0, len(files))
-	if index, err = lang_chain.NewFaissIndex(sources); err != nil {
+	sources := make([]langchain.Source, 0, len(files))
+	if index, err = langchain.NewFaissIndex(sources); err != nil {
 		return "", err
 	}
 
@@ -122,7 +122,7 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 		}
 		fp := fmt.Sprintf("%s_doc%03d.%s", prefix, idx, ext)
 
-		index.Sources = append(index.Sources, lang_chain.Source{
+		index.Sources = append(index.Sources, langchain.Source{
 			Title:  fh.Filename,
 			Type:   ext,
 			Source: filepath.Base(fp),

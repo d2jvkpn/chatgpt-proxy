@@ -73,14 +73,8 @@ github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354/go.mod h1:WmhPx2Nbnht
 github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403/go.mod h1:WmhPx2Nbnhtbo57+VJT5O0JRkEi1Wbu0z5j0R8u5Hbk=
 github.com/d2jvkpn/go-web v0.0.0-20230423113819-40c514cd0894 h1:zYr0PbPXYpfldMKNSyGjSN1ytHykR3z9GlXNIPsA204=
 github.com/d2jvkpn/go-web v0.0.0-20230423113819-40c514cd0894/go.mod h1:COceIf2raC7fpxbMG2Bi9/o6338Jg8JkdVC97sTcJWM=
-github.com/d2jvkpn/x-ai v0.0.0-20230424124916-8f793b8a5255 h1:OgahG+peZzv8zS+ZTrQRMsbcSMHNPpDVdDHeIubKhWI=
-github.com/d2jvkpn/x-ai v0.0.0-20230424124916-8f793b8a5255/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
-github.com/d2jvkpn/x-ai v0.0.0-20230424234217-80c46dedc4db h1:vuFtqbAhsDvAWWN10Qnr5U3oknv0F2RnlyxkKdMLk/o=
-github.com/d2jvkpn/x-ai v0.0.0-20230424234217-80c46dedc4db/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
-github.com/d2jvkpn/x-ai v0.0.0-20230425015648-4d690f38737e h1:+TKEyXhgacwG5uJHnwl5C2gvRfGdoS6tyNAe7yJx3Tc=
-github.com/d2jvkpn/x-ai v0.0.0-20230425015648-4d690f38737e/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
-github.com/d2jvkpn/x-ai v0.0.0-20230425024742-a91b480f5fae h1:GeHqtA9zGfUmtSpy+C8bL7W9nySU8e9FD5abDZ+Vaok=
-github.com/d2jvkpn/x-ai v0.0.0-20230425024742-a91b480f5fae/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
+github.com/d2jvkpn/x-ai v0.0.0-20230425110601-68327c00e336 h1:bDjhhzdK3Zk8TdVJBloWr9u4wwb2vaX3g5ZfiCzuOVc=
+github.com/d2jvkpn/x-ai v0.0.0-20230425110601-68327c00e336/go.mod h1:X2RVYKW7bSV0+JBoP57pjLXCkhFTPbJ3GbjKcI6jclU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

@@ -77,11 +77,12 @@ func (lca *LangChainAgent) PyIndex(prefix string) {
 	log.Printf("==> PyIndex end: %s\n", prefix)
 }
 
-func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err error) {
+func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (err error) {
 	var (
 		idx         int
 		msg         string
 		prefix, ext string
+		indexName   string
 		list        []string
 		fh          *multipart.FileHeader
 		form        *multipart.Form
@@ -91,19 +92,19 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 
 	msg = "ok"
 	if form, err = ctx.MultipartForm(); err != nil {
-		return "", err
+		return err
 	}
 
 	files = form.File["sources"]
 	if len(files) == 0 {
 		msg = "has no sources"
 		ctx.JSON(http.StatusBadRequest, gin.H{"code": -1, "msg": msg})
-		return "", fmt.Errorf(msg)
+		return fmt.Errorf(msg)
 	}
 
 	sources := make([]langchain.Source, 0, len(files))
 	if index, err = langchain.NewFaissIndex(sources); err != nil {
-		return "", err
+		return err
 	}
 
 	indexName = "faiss-index_" + index.UtcTime.Format(time.DateOnly) + "/" + index.Uuid()
@@ -118,7 +119,7 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 		if ext, err = lca.Filename(fh.Filename); err != nil {
 			msg = fmt.Sprintf("invalid file: %s", fh.Filename)
 			ctx.JSON(http.StatusBadRequest, gin.H{"code": -2, "msg": msg})
-			return "", fmt.Errorf(msg)
+			return fmt.Errorf(msg)
 		}
 		fp := fmt.Sprintf("%s_doc%03d.%s", prefix, idx, ext)
 
@@ -135,21 +136,21 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 	if err = os.MkdirAll(filepath.Dir(prefix), 0755); err != nil {
 		msg = "internal error"
 		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 1, "msg": msg})
-		return "", err
+		return err
 	}
 
 	for idx, fh = range files {
 		if err = ctx.SaveUploadedFile(fh, list[idx]); err != nil {
 			msg = "internal error"
 			ctx.JSON(http.StatusInternalServerError, gin.H{"code": 2, "msg": msg})
-			return "", err
+			return err
 		}
 	}
 
 	if err = index.SaveYaml(prefix + ".tmp.yaml"); err != nil {
 		msg = "internal error"
 		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 3, "msg": msg})
-		return "", err
+		return err
 	}
 
 	// TODO: ?? async
@@ -162,8 +163,11 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (indexName string, err 
 	*/
 	go lca.PyIndex(prefix)
 
-	ctx.JSON(http.StatusOK, gin.H{"code": 0, "msg": msg, "data": gin.H{"faissIndex": indexName}})
-	return indexName, nil
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 0, "msg": msg,
+		"data": gin.H{"indexName": indexName, "faissIndex": index},
+	})
+	return nil
 }
 
 func (lca *LangChainAgent) HandleQuery(ctx *gin.Context) (err error) {

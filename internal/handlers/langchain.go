@@ -12,7 +12,7 @@ import (
 func langChainIndex(ctx *gin.Context) {
 	var err error
 
-	if _, err = settings.LCA.HandleIndex(ctx); err != nil {
+	if err = settings.LCA.HandleIndex(ctx); err != nil {
 		log.Printf("!!! langChainIndex: %v\n", err)
 	}
 }

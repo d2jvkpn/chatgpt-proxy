@@ -11,8 +11,8 @@ COPY ./internal ./internal
 # COPY ./vendor  ./vendor
 
 # in alpine, date doesn't parse %:z
-RUN go env -w GOPROXY="https://goproxy.cn,direct" && \
-  go build -o main -ldflags="-w -s ${ldflags}" main.go
+RUN go env -w GOPROXY="https://goproxy.cn,direct"
+RUN go build -o main -ldflags="-w -s ${ldflags}" main.go
 
 ####
 FROM registry.cn-shanghai.aliyuncs.com/d2jvkpn/langchain:latest

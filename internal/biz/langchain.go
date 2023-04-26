@@ -165,7 +165,7 @@ func (lca *LangChainAgent) HandleIndex(ctx *gin.Context) (err error) {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 0, "msg": msg,
-		"data": gin.H{"indexName": indexName, "faissIndex": index},
+		"data": gin.H{"faissIndex": indexName, "meta": index},
 	})
 	return nil
 }

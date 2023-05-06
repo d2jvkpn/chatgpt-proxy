@@ -42,8 +42,8 @@ func main() {
 	}
 
 	meta = misc.BuildInfo()
-	meta["project"] = settings.GetProject()
-	meta["version"] = settings.GetVersion()
+	meta["project"] = settings.Project()
+	meta["version"] = settings.Version()
 
 	flag.StringVar(&addr, "addr", "0.0.0.0:3021", "http server listening address")
 	flag.StringVar(&config, "config", "configs/local.yaml", "config file path")
@@ -54,16 +54,16 @@ func main() {
 
 		fmt.Fprintf(output, "Usage:\n")
 		flag.PrintDefaults()
-		fmt.Fprintf(output, "\nConfig:\n```yaml\n%s```\n", settings.GetConfig())
+		fmt.Fprintf(output, "\nConfig:\n```yaml\n%s```\n", settings.Config())
 	}
 
 	flag.Parse()
+	meta["release"] = release
 
 	if err = internal.Load(config, release); err != nil {
 		log.Fatalln(err)
 	}
 
-	meta["release"] = release
 	if errch, err = internal.Serve(addr, meta); err != nil {
 		log.Fatalln(err)
 	}

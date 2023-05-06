@@ -39,15 +39,15 @@ func SetProject(str string) (err error) {
 	return _Project.ReadConfig(strings.NewReader(str))
 }
 
-func GetProject() string {
+func Project() string {
 	return _Project.GetString("project")
 }
 
-func GetVersion() string {
+func Version() string {
 	return _Project.GetString("version")
 }
 
-func GetConfig() string {
+func Config() string {
 	return _Project.GetString("config")
 }
 

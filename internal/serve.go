@@ -61,10 +61,10 @@ func Serve(addr string, meta map[string]any) (errch chan error, err error) {
 		// err := _Server.ServeTLS(listener, "configs/localhost.csr", "configs/localhost.key")
 		var err error
 
-		if _Server.TLSConfig == nil {
-			err = _Server.Serve(listener)
-		} else {
+		if TlsEnabled() {
 			err = _Server.ServeTLS(listener, "", "")
+		} else {
+			err = _Server.Serve(listener)
 		}
 
 		if err != http.ErrServerClosed {

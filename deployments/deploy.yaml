@@ -14,7 +14,7 @@ services:
     - ./configs/:/home/hello/chatgpt-proxy/configs/
     - ./logs/:/home/hello/chatgpt-proxy/logs/
     - ./data/:/home/hello/chatgpt-proxy/data/
-    command: ["./main", "--config=configs/${APP_ENV}.yaml", "--addr=:${PORT}", "--release"]
+    command: ["./main", "-config=configs/${APP_ENV}.yaml", "-addr=0.0.0.0:${PORT}", "-release"]
 
 networks:
   net:
